@@ -1,0 +1,20 @@
+# Non-secret reference configuration. v0.1 reads equivalent QUARKSYNC_* variables.
+[sync]
+writeback_delay_seconds = 60
+sync_interval_seconds = 300
+remote_poll_seconds = 120
+delete_grace_seconds = 86400
+max_uploads = 3
+max_downloads = 3
+
+[cache]
+max_gb = 100
+min_free_gb = 20
+
+[status]
+heartbeat_seconds = 60
+
+[ipc]
+connect_timeout_seconds = 10
+request_timeout_seconds = 120
+hydration_timeout_seconds = 86400

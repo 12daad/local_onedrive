@@ -1,0 +1,47 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "quarksync"
+version = "0.1.0"
+description = "Local-first Windows CFAPI sync client for OpenList WebDAV"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [{ name = "QuarkSync contributors" }]
+dependencies = [
+  "httpx>=0.27,<1",
+  "platformdirs>=4.2,<5",
+  "defusedxml>=0.7,<1",
+]
+
+[project.optional-dependencies]
+windows = ["pywin32>=306; sys_platform == 'win32'"]
+dev = [
+  "pytest>=8.3,<9",
+  "pytest-asyncio>=0.24,<1",
+  "pytest-timeout>=2.3,<3",
+  "ruff>=0.8,<1",
+]
+
+[project.scripts]
+qsync = "quarksync.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/quarksync"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+markers = [
+  "windows_cfapi: requires a supported Windows CFAPI environment",
+  "large_file: slow streaming test using sparse/generated large files",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC", "S"]
+ignore = ["S101"]
